@@ -41,6 +41,31 @@ If git are used in the installation stage, you can also using the command `code-
 make code-workspace-ex-update
 ```
 
+## Table of contents
+
+### Make workspace folders
+
+`make workspace-folders`
+
+will remove all folders in your `.code-workspace` file, and append some new folders with rules listed below:
+
+1. for all dir named `.../xxx/draft`, a folder `{ "name": "[Draft] xxx", "path": ".../xxx/draft", }` will be create
+2. for all dir named `.../xxx/proposal`, a folder `{ "name": "[Proposal] xxx", "path": ".../xxx/proposal", }` will be create
+
+some tips :
+
+- hiding path which starts with '.' symbol will be ignored
+- if you have custom folder in the code-workspace file, mark them with `"stable": true` to avoid being remove.  
+  e.g.
+
+  ```json
+  {
+    "name": "custom folder",
+    "path": "path/of/custom/folder",
+    "stable": true
+  }
+  ```
+
 ## Contribution
 
 pull request is welcome
