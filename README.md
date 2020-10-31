@@ -10,16 +10,18 @@ Code Workspace Extern project
 
 ## Installation
 
-in the folder you want to install the tool, run commond
+in the folder you want to install the tool
+
+### by git (SSL)
 
 ```sh
-git clone https://github.com/bagaking/code-workspace-ex.git .code-workspace-ex && /bin/bash -c ./.code-workspace-ex/install.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/bagaking/code-workspace-ex/master/install-remote.sh)"
 ```
 
-### by curl
+### by git (SSH)
 
 ```sh
-curl -LJO https://raw.githubusercontent.com/bagaking/code-workspace-ex/archive/master.zip
+git clone git@github.com:bagaking/code-workspace-ex.git .code-workspace-ex && /bin/bash -c ./.code-workspace-ex/install.sh
 ```
 
 ## Update

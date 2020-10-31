@@ -3,9 +3,13 @@
 # ===============
 
 LIBPATH=./.code-workspace-ex
+FIRST_COMMIT=f61f370
+
+.PHONY: code-workspace-ex-update workspace-folders
 
 code-workspace-ex-update: 
-	cd $(LIBPATH) && git pull origin
+	cd $(LIBPATH) && git reset --hard $(FIRST_COMMIT) && git pull origin
+	/bin/bash -c $(LIBPATH)/install.sh
  
 workspace-folders:
-	node ./scripts/make-workspace.js
+	node $(LIBPATH)/make-workspace.js
