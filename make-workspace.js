@@ -23,7 +23,8 @@ const fsearcher = new FolderSearcher(
 
 function CreateNamePlugger(tag, filderName) {
   return {
-    match: (dirname) => dirname.endsWith(filderName),
+    match: (dirname) =>
+      !dirname.startsWith(".") && dirname.endsWith(filderName),
     fnFolderObject: (dirname) => ({
       name: tag + " " + dirname.replace(filderName, ""),
       path: dirname,
