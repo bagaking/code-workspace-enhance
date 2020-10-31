@@ -1,8 +1,8 @@
-const { dirname, isAbsolute } = require("path")
+const { dirname, isAbsolute } = require("path");
 const { exit } = require("process");
 
-const WSHolder = require("./utils/wsholder")
-const FolderSearcher = require("./utils/foldersearcher")
+const WSHolder = require("./utils/wsholder");
+const FolderSearcher = require("./utils/foldersearcher");
 
 let ags = process.argv.slice(2);
 if (ags.length < 0) {
@@ -17,7 +17,9 @@ if (!wsh.enabled) {
 }
 
 console.log(`scan folder of ${workspaceName}`);
-const fsearcher = new FolderSearcher(dirname(isAbsolute(workspaceName) ? workspaceName : "./" + workspaceName));
+const fsearcher = new FolderSearcher(
+  dirname(isAbsolute(workspaceName) ? workspaceName : "./" + workspaceName)
+);
 
 function CreateNamePlugger(tag, filderName) {
   return {
@@ -25,19 +27,23 @@ function CreateNamePlugger(tag, filderName) {
     fnFolderObject: (dirname) => ({
       name: tag + " " + dirname.replace(filderName, ""),
       path: dirname,
-    })
-  }
+    }),
+  };
 }
 
-PluggerDraft = CreateNamePlugger("[Draft]", "/draft")
-PluggerProposal = CreateNamePlugger("[Propsal]", "/proposal")
-Pluggers = { PluggerDraft, PluggerProposal }
+PluggerDraft = CreateNamePlugger("[Draft]", "/draft");
+PluggerProposal = CreateNamePlugger("[Propsal]", "/proposal");
+Pluggers = { PluggerDraft, PluggerProposal };
 
+console.log(
+  "start generate main procedure, dirs= " +
+    fsearcher.dirs.filter((s) => !s.startsWith("."))
+);
 
-console.log("start generate main procedure, dirs= " + fsearcher.dirs.filter(s => !s.startsWith(".")));
+wsh.RemoveUnstableFolder();
 for (const pName in Pluggers) {
   console.log("start generate plugger " + pName);
-  const p = Pluggers[pName]
+  const p = Pluggers[pName];
   wsh.PlugThingsForDir(fsearcher.dirs, p.match, p.fnFolderObject); // dirs, match, fnFolderObject
 }
 wsh.Save();

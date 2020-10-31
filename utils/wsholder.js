@@ -33,6 +33,24 @@ module.exports = class WorkSpaceHandler {
     fs.writeFileSync(this.workSpaceName, JSON.stringify(this.data, null, 2));
   }
 
+  // PlugThingsForDir, remove folder entries which has no `stable` flags
+  // to avoid a custom folder be dropped by this method, you should mark it with `stable` flag
+  //
+  // e.g.
+  // ...
+  // {
+  //   "name": "Tree",
+  //   "path": ".",
+  //   "stable": true
+  // }, ...
+  RemoveUnstableFolder() {
+    this.data.folders = this.data.folders || [];
+    for (let i = this.data.folders.length - 1; i >= 0; i--) {
+      if (this.data.folders[i].stable) continue;
+      this.data.folders.splice(i, 1);
+    }
+  }
+
   // PlugThingsForDir, find match in given dirs and insert folder blobs of matched dir in to the workspace's folder filed
   // @param dirs should be a arr of dirPath(string)
   // @param match is a funtion to validate a path. input is a dirname, and output is a bool value

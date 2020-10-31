@@ -6,6 +6,7 @@ Code Workspace Extern project
 
 - Node.js > 8.0
 - make
+- bash
 - git (for update)
 
 ## Installation
